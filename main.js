@@ -100,7 +100,7 @@ function selectedTile() {
             console.log('hii')
             errors = errors + 1
             document.getElementById('mistakes').innerHTML = 'Mistakes' + '  ' + errors
-            this.classList.add('mistakes')
+            //this.classList.add('mistakes')
 
         }
     }

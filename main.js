@@ -1,3 +1,4 @@
+
 let numselected = null
 let tileselected = null
 let result = null
@@ -128,7 +129,7 @@ function setcelebrate() {
 
             let id = r.toString() + '-' + c.toString()
             let celebration = document.getElementById( id )
-            
+            console.log(celebration.innerHTML)
             if (celebration.innerHTML != '') {
                 count += 1
 

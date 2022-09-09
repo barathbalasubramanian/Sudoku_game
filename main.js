@@ -1,9 +1,10 @@
-
-
 let numselected = null
 let tileselected = null
+let result = null
 
+let count = 0
 let errors = 0
+
 
 let board = [
     '--74916-5',
@@ -19,7 +20,7 @@ let board = [
 
 let solution = [
     '387491625',
-    '241568379',
+    '214568379',
     '569327418',
     '758619234',
     '123784596',
@@ -29,9 +30,19 @@ let solution = [
     '812945763'
 ]
 
-window.onload = function () {
+const st = document.querySelector('.start')
+const container = document.querySelector('.container')
+const final = document.querySelector('.final')
+
+st.addEventListener('click',function() {
+    st.innerHTML = ''
+    st.classList.remove('start')
+    container.classList.toggle('active')
     setGame()
-}
+    myInterval = setInterval(setColor, 2000);
+
+})
+
 
 function setGame () {
 
@@ -44,7 +55,7 @@ function setGame () {
         document.getElementById('number').appendChild(numbers)
     }
 
-    for ( let r = 0 ; r <= 9 ; r++ ) {
+    for ( let r = 0 ; r <= 8 ; r++ ) {
         for ( let c = 0 ; c <= 8 ; c++) {
 
             let tiles = document.createElement('div')
@@ -71,11 +82,13 @@ function setGame () {
 
 function selectedNumber() {
 
+//    console.log(numselected)
     if (numselected != null) {
+
         numselected.classList.remove('selected-number')
     }
     numselected = this
-    numselected.classList.add('selected-number')
+    this.classList.add('selected-number')
     
 }
 
@@ -97,11 +110,70 @@ function selectedTile() {
         this.classList.add('new-tile')
         }
         else {
-            console.log('hii')
             errors = errors + 1
+            this.innerText = ''
+
             document.getElementById('mistakes').innerHTML = 'Mistakes' + '  ' + errors
-            //this.classList.add('mistakes')
+            // this.classList.add('mistakes')
 
         }
     }
 }
+
+
+function setcelebrate() {
+    if (result == null) {
+    for ( let r = 0 ; r <= 8 ; r++ ) {
+        for ( let c = 0 ; c <= 8 ; c++) {
+
+            let id = r.toString() + '-' + c.toString()
+            let celebration = document.getElementById( id )
+            
+            if (celebration.innerHTML != '') {
+                count += 1
+
+                if (count == 81) 
+                {
+                    start()
+                    final.innerHTML += errors + ' ' + 'MISTAKES'
+                    final.classList.toggle('active')
+                    container.classList.toggle('active')
+                    result = 'finished'
+                    return
+                }
+
+            }
+            else {
+                count = 0
+            }
+        }
+    }
+}
+}
+
+const jsConfetti = new JSConfetti()
+        
+
+const start = () =>
+ {
+    setTimeout(function() {
+        jsConfetti.addConfetti()
+    });
+};
+
+
+function watching() {
+
+    const one_tile = document.getElementById('0-1')
+    if ( one_tile.innerHTML != '') {
+    setcelebrate()  
+}
+}
+
+// myInterval = setInterval(setColor, 2000);
+
+function setColor() {
+    watching()
+}
+
+ 
